@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="layout-index">
     <!-- 子路由 -->
-    <router-view></router-view>
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <!-- /子路由 -->
 
     <!-- 底部导航栏 -->
@@ -17,11 +19,15 @@
 
 <script>
 export default {
-    data(){
-        return {
-            active: 0
-        }
-    }
+  name:'layoutIndex',
+  data() {
+    return {
+      active: 0,
+    };
+  },
+  mounted(){
+    this.$store.commit('addCachePages','layoutIndex')
+  }
 };
 </script>
 

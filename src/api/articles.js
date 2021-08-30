@@ -13,3 +13,13 @@
      params
    })
  }
+
+  /**
+  * 根据获取文章详情
+  */
+   export const getArticleByID = articleID => {
+    return request({
+      method: 'GET',
+      url: `/app/v1_0/articles/${articleID}`,
+    })
+  }

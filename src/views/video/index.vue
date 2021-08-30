@@ -1,15 +1,13 @@
 <template>
   <div>
-      这是视频页面
+    这是视频页面
   </div>
 </template>
 
 <script>
 export default {
-    name:"VideoIndex"
-}
+  name: "videoIndex",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

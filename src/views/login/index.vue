@@ -90,7 +90,6 @@ export default {
     };
   },
   methods: {
-    
     async onlogin() {
       //登录/注册
       try {
@@ -102,15 +101,17 @@ export default {
         //1. 找到数据接口
         //2. 封装请求方法
         //3. 请求调用登录
-        const {data} = await login(this.user);
+        const { data } = await login(this.user);
         this.$toast.success("登录成功");
 
         //4. 处理响应结果
-        this.$store.commit('setUser',data.data);
+        this.$store.commit("setUser", data.data);
 
+        this.$store.commit("removeCachPages", "layoutIndex");
         //登录成功，返回上一个页面
         this.$router.back();
-
+        // const redirect = this.$route.query.redirect || "/";
+        // this.$router.push(redirect);
       } catch (err) {
         this.$toast.fail("登录失败，手机或验证码输入错误！");
       }

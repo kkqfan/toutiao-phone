@@ -1,27 +1,30 @@
 <template>
-  <van-cell class="article-item">
-    <div slot="title" class="title van-multi-ellipsis--l3">{{article.title}}</div>
+  <van-cell
+    class="article-item"
+    :to="{
+      name: 'article',
+      params: {
+        articleId: article.art_id,
+      },
+    }"
+  >
+    <div slot="title" class="title van-multi-ellipsis--l3">
+      {{ article.title }}
+    </div>
     <div slot="label">
-      <div
-        v-if="article.cover.type === 3"
-        class="cover-wrap"
-      >
+      <div v-if="article.cover.type === 3" class="cover-wrap">
         <div
           class="cover-wrap-item"
           v-for="(img, index) in article.cover.images"
           :key="index"
         >
-          <van-image
-            class="cover-image"
-            fit="cover"
-            :src="img"
-          />
+          <van-image class="cover-image" fit="cover" :src="img" />
         </div>
       </div>
       <div class="label-wrap">
         <span>{{ article.aut_name }}</span>
         <span>{{ article.comm_count }}评论</span>
-        <span>{{ article.pubdate | relativeTime}}</span>
+        <span>{{ article.pubdate | relativeTime }}</span>
       </div>
     </div>
     <!-- 默认插槽的名字叫 default，可以省略 -->
@@ -36,23 +39,23 @@
 
 <script>
 export default {
-  name: 'ArticleItem',
+  name: "ArticleItem",
   components: {},
   props: {
     article: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
-    return {}
+  data() {
+    return {};
   },
   computed: {},
   watch: {},
-  created () {},
-  mounted () {},
-  methods: {}
-}
+  created() {},
+  mounted() {},
+  methods: {},
+};
 </script>
 
 <style scoped lang="less">

@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="article-list">
     <van-pull-refresh
       v-model="isRefreshLoading"
       :success-text="RefreshSuccessText"
@@ -12,7 +12,11 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <ArticleItem v-for="(article, index) in articles" :key="index" :article="article" />
+        <ArticleItem
+          v-for="(article, index) in articles"
+          :key="index"
+          :article="article"
+        />
         <!-- <van-cell
           v-for="(article, index) in articles"
           :key="index"
@@ -26,6 +30,7 @@
 <script>
 import { getArticles } from "@/api/articles";
 import ArticleItem from "@/components/article-item";
+import { debounce } from "lodash";
 
 export default {
   name: "ArticleList",
@@ -46,12 +51,21 @@ export default {
       timestamp: null, //获取下一页的时间戳
       isRefreshLoading: false, //下拉刷新 loading 状态
       RefreshSuccessText: "", //下拉刷新成功的提示
+      scrolltop: 0,
     };
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {},
+  mounted() {
+    const articleList = this.$refs["article-list"];
+    articleList.onscroll = debounce(() => {
+      this.scrolltop = articleList.scrollTop;
+    }, 50);
+  },
+  activated(){
+    this.$refs["article-list"].scrollTop=this.scrolltop
+  },
   methods: {
     async onLoad() {
       // 异步更新数据
